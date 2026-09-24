@@ -18,6 +18,12 @@
 - Keep sources reproducible and separate generated artifacts appropriately.
 - Render-check deliverables when practical and report any environment limitation.
 
+## Referenced Skills
+- [`chart-vision-qa`](../../../.github/skills/chart-vision-qa/SKILL.md) — Read and apply this skill when visually validating charts in rendered deliverables.
+- [`save-and-show`](../../../.github/skills/save-and-show/SKILL.md) — Read and apply this skill only when using notebook-generated figures.
+- [`quarto-reporting-standards`](../../../.github/skills/quarto-reporting-standards/SKILL.md) — Read and apply this skill before assembling or validating a Quarto report.
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before embedding or approving any visual; do not create charts without explicit permission.
+
 ## Boundaries
 **I handle:** Report and presentation implementation.
 **I don't handle:** Primary statistical design, modeling choices, chart semantics, or git operations.
