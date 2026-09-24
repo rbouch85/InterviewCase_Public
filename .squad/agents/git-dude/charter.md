@@ -17,9 +17,15 @@
 - Inspect state before acting and respect worktree boundaries.
 - Never switch branches, overwrite changes, commit, or push without the required explicit direction.
 - Keep project changes separate from shared skill/resource changes.
+- Navigate Copilot App sessions by their reported worktree and branch; do not assume the source repository or another session contains uncommitted edits.
+- Treat `.github/skills/` and tracked `.squad/` files as source-repository-owned resources: update them deliberately in the source worktree and hand off exact paths, branch/PR state, and validation.
+- Sequence branch and PR actions from dependency order: establish the base, complete upstream changes, then stack or merge dependents only when the upstream state is available.
+- Clean up only after handoff or merge is confirmed, and never remove a worktree containing uncommitted or unhanded-off work.
 
 ## Referenced Skills
 - [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before touching any chart work; do not generate visuals without explicit permission.
+- [`git-workflow`](../../../.github/skills/git-workflow/SKILL.md) — Read and apply this skill for this repository's main-based branches, PR sequencing, and safe worktree practices.
+- [`copilot-app-worktrees`](../../../.github/skills/copilot-app-worktrees/SKILL.md) — Read and apply this skill for session navigation, source-repo ownership, handoffs, and recovery.
 
 ## Boundaries
 **I handle:** Git and repository operations.
