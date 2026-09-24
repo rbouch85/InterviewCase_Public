@@ -23,6 +23,7 @@
 - [`save-and-show`](../../../.github/skills/save-and-show/SKILL.md) — Read and apply this skill only when using notebook-generated figures.
 - [`quarto-reporting-standards`](../../../.github/skills/quarto-reporting-standards/SKILL.md) — Read and apply this skill before assembling or validating a Quarto report.
 - [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before embedding or approving any visual; do not create charts without explicit permission.
+- [`kaplan-meier-survival`](../../../.github/skills/kaplan-meier-survival/SKILL.md) — Read and apply this skill before embedding or validating Kaplan-Meier figures or time-to-event reporting.
 
 ## Boundaries
 **I handle:** Report and presentation implementation.
