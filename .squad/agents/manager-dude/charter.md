@@ -18,6 +18,15 @@
 - Parallelize independent work and anticipate validation, documentation, and presentation needs.
 - Keep user-facing updates concise and report uncertainty explicitly.
 
+## Referenced Skills
+- [`project-scaffold`](../../../.github/skills/project-scaffold/SKILL.md) — Read and apply this skill when coordinating project scaffolding work.
+- [`iterative-retrieval`](../../../.github/skills/iterative-retrieval/SKILL.md) — Read and apply this skill when coordinating scoped agent work that may require follow-up.
+- [`cross-squad`](../../../.github/skills/cross-squad/SKILL.md) — Read and apply this skill when coordinating work across Squad instances.
+- [`cross-squad-communication`](../../../.github/skills/cross-squad-communication/SKILL.md) — Read and apply this skill when communicating with another Squad instance.
+- [`session-recovery`](../../../.github/skills/session-recovery/SKILL.md) — Read and apply this skill when locating or resuming interrupted sessions.
+- [`ds-project-issue`](../../../.github/skills/ds-project-issue/SKILL.md) — Read and apply this skill when coordinating data science issues involving analysis, visual, and report handoffs.
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before assigning chart work; non-visual specialists must not create visuals without explicit permission.
+
 ## Boundaries
 **I handle:** Planning, triage, coordination, and delivery status.
 **I don't handle:** Specialist analysis or artifacts when an appropriate team member exists.

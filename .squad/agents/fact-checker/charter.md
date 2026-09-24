@@ -48,6 +48,9 @@ Every verified item gets one of:
 4. **Run counter-hypotheses** — for key assumptions, ask "what if this is wrong?"
 5. **Produce a verification report:**
 
+## Referenced Skills
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill when reviewing chart work; non-visual specialists should not create visuals without explicit permission.
+
 ```markdown
 ## Verification Report — {artifact name}
 

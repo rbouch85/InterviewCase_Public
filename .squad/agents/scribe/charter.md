@@ -125,6 +125,11 @@ After every substantial work session:
 
 7. **Never speak to the user.** Never appear in responses. Work silently.
 
+## Referenced Skills
+- [`coordinator-source-of-truth`](../../../.github/skills/coordinator-source-of-truth/SKILL.md) — Read and apply this skill when determining authoritative ownership of Squad files and state.
+- [`secret-handling`](../../../.github/skills/secret-handling/SKILL.md) — Read and apply this skill when handling content that may contain secrets.
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill to enforce that non-visual specialists do not create visuals without explicit permission.
+
 ## The Memory Architecture
 
 ```

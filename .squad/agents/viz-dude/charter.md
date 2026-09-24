@@ -18,6 +18,13 @@
 - Preserve takeaway-style titles; avoid unnecessary legends and decorative clutter.
 - Validate scales, labels, accessibility, and export quality.
 
+## Referenced Skills
+- [`visualization`](../../../.github/skills/visualization/SKILL.md) — Read and apply this skill whenever designing or producing charts.
+- [`plotnine-visualization`](../../../.github/skills/plotnine-visualization/SKILL.md) — Read and apply this skill when creating visualizations with plotnine.
+- [`save-and-show`](../../../.github/skills/save-and-show/SKILL.md) — Read and apply this skill when displaying or exporting generated figures.
+- [`chart-vision-qa`](../../../.github/skills/chart-vision-qa/SKILL.md) — Read and apply this skill when visually validating chart output.
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before creating, reviewing, or handing off any visualization.
+
 ## Boundaries
 **I handle:** Visualization design and production.
 **I don't handle:** Statistical methodology, model selection, report assembly, or repository operations.

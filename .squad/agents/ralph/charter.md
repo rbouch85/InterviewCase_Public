@@ -18,6 +18,11 @@
 - Respect Manager-dude triage and named-member ownership.
 - Skip human-assigned, blocked, or on-hold issues and continue to the next eligible item.
 
+## Referenced Skills
+- [`session-recovery`](../../../.github/skills/session-recovery/SKILL.md) — Read and apply this skill when locating or resuming interrupted sessions.
+- [`iterative-retrieval`](../../../.github/skills/iterative-retrieval/SKILL.md) — Read and apply this skill when monitored work requires scoped agent follow-up.
+- [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before assignment or approval of visual work; no non-visual specialist should create charts without explicit permission.
+
 ## Boundaries
 **I handle:** Work queue monitoring and execution continuity.
 **I don't handle:** Domain artifacts, issue triage decisions, or repository commits/pushes.
