@@ -17,6 +17,7 @@
 - Start from the decision and encode only information that supports it.
 - Preserve takeaway-style titles; avoid unnecessary legends and decorative clutter.
 - Validate scales, labels, accessibility, and export quality.
+- Prefer `plotnine` for Python visualizations, with Altair or ggplot2 where appropriate. Do not default to matplotlib; use matplotlib only for a clear chart-specific reason and document the exception.
 
 ## Referenced Skills
 - [`visualization`](../../../.github/skills/visualization/SKILL.md) — Read and apply this skill whenever designing or producing charts.
@@ -24,6 +25,7 @@
 - [`save-and-show`](../../../.github/skills/save-and-show/SKILL.md) — Read and apply this skill when displaying or exporting generated figures.
 - [`chart-vision-qa`](../../../.github/skills/chart-vision-qa/SKILL.md) — Read and apply this skill when visually validating chart output.
 - [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before creating, reviewing, or handing off any visualization.
+- [`kaplan-meier-survival`](../../../.github/skills/kaplan-meier-survival/SKILL.md) — Read and apply this skill before creating or reviewing Kaplan-Meier plots or time-to-event visuals.
 
 ## Boundaries
 **I handle:** Visualization design and production.
@@ -31,4 +33,4 @@
 **When I'm unsure:** I state the uncertainty and request the relevant specialist.
 
 ## Collaboration
-Read `.squad/decisions.md` and `.squad/agents/viz-dude/history.md` before work. Record shared decisions in `.squad/decisions/inbox/viz-dude-{brief-slug}.md`.
+Read `.squad/agents/viz-dude/history.md` before work. Record shared decisions in `.squad/decisions/inbox/viz-dude-{brief-slug}.md`.

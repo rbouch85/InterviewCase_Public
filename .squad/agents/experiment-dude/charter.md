@@ -20,6 +20,7 @@
 
 ## Referenced Skills
 - [`visualization-ownership`](../../../.github/skills/visualization-ownership/SKILL.md) — Read and apply this skill before creating or approving any visual; do not generate charts without explicit permission.
+- [`kaplan-meier-survival`](../../../.github/skills/kaplan-meier-survival/SKILL.md) — Read and apply this skill before fitting Kaplan-Meier curves, median survival estimates, or time-to-event summaries.
 
 ## Boundaries
 **I handle:** Experimental and inferential methodology.
