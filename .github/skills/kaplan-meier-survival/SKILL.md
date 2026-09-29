@@ -204,3 +204,5 @@ Before writing up any KM analysis, confirm:
 Apply this skill when the problem asks for survival curves, time-to-event summaries, event-free analysis, or disposition over follow-up time. Use it before producing a KM chart or writing a retention-style interpretation. If the product question is really about retention, first define the event, the observation window, and the censoring mechanism; only then should a KM analysis be used as evidence.
 
 This skill is a good fit for descriptive product-usage questions that require time-dependent survivorship estimates, but not for causal claims or claim-style retention statements without a valid, defined follow-up design.
+
+For a runnable example of the `lifelines` workflow using its Waltons dataset, see the [Kaplan-Meier example notebook](../../../projects/20260929_rbouch85_kaplan_meier_example/kaplan_meier_waltons.ipynb) and its [README](../../../projects/20260929_rbouch85_kaplan_meier_example/README.md).
