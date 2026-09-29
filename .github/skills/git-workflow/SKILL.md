@@ -38,6 +38,17 @@ until the source repository reflects it.
 ## Independent and stacked work
 
 - Independent changes can use separate session worktrees and separate PRs targeting `main`.
+- All parallel PR tasks MUST use isolated Copilot sessions/worktrees and distinct task
+  branches. Never reuse a shared in-place checkout for concurrent work.
+- Before creating a task branch, fetch the intended base and branch explicitly from its
+  latest remote tip (normally `origin/main`), rather than from whatever commit happens
+  to be checked out in the current worktree:
+  ```bash
+  git fetch origin main
+  git worktree add ../{repo-name}-{task} -b {task-branch} origin/main
+  ```
+  For a stacked PR, substitute the explicitly named upstream branch/commit for
+  `origin/main` and record that dependency.
 - A dependent change may stack on an upstream branch/PR only when the dependency is explicit.
   Identify the upstream ref in the handoff and PR description.
 - Merge or land upstream dependencies first; then rebase/update and validate dependents before
@@ -58,3 +69,25 @@ until the source repository reflects it.
 
 When recovering an interrupted session, inspect session history and the worktree status first;
 preserve recoverable edits, then resume or hand them off rather than resetting them.
+
+## PR scope gates
+
+Before every commit/push that will feed a PR, and again before opening or updating the PR:
+
+1. Confirm the full branch scope against the intended base, not only the latest commit:
+   ```bash
+   git diff origin/main...HEAD --name-only
+   ```
+   For a stacked PR, replace `origin/main` with the explicitly recorded base ref.
+2. Check patch and whitespace errors:
+   ```bash
+   git diff --check
+   ```
+3. Verify the changed-file list on GitHub after the branch is pushed (for example with
+   `gh pr view {number} --json files`) and confirm it matches the intended base-to-head
+   scope. Do not open or update the PR until unexpected files are removed or the base is
+   corrected.
+
+Latest-commit inspection is not a substitute for these gates: GitHub computes PR scope
+from the complete base-to-head diff, so earlier commits can reappear when a branch starts
+from the wrong checkout `HEAD`.

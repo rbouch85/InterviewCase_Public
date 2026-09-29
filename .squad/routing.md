@@ -9,6 +9,7 @@ How to decide who handles what.
 | Visualization and dashboard design | Viz-dude | Decision-oriented charts, accessible labels, uncertainty displays, publication-ready figures |
 | Quarto reports and presentations | Quarto-dude | Quarto documents, PowerPoint deliverables, templates, branded styling, render validation |
 | Experiments and statistical inference | Experiment-dude | Power/MDE, treatment-control comparisons, confidence intervals, multiple testing |
+| Survival and time-to-event analysis | Experiment-dude | Kaplan-Meier curves, median survival, censoring-aware event-time summaries |
 | Predictive and descriptive modeling | Model-dude | Supervised/unsupervised models, preprocessing, validation, leakage checks, interpretation |
 | Git and repository operations | Git-Dude | Repository hygiene, branches, worktrees, `.gitignore`, commits/PR preparation when requested |
 | Queries and semantic models | Query-dude | DAX, SQL, KQL, schema discovery, measure/filter validation |
@@ -43,3 +44,4 @@ How to decide who handles what.
 7. **Issue-labeled work** — when a `squad:{member}` label is applied to an issue, route to that member. Manager-dude handles all `squad` (base label) triage.
 8. **Repository actions are opt-in** — Git-Dude never commits or pushes unless explicitly requested.
 9. **Background reviewers stay background-only** — Rai and Fact Checker review without taking ownership of implementation.
+10. **Survival and time-to-event work** — use the `kaplan-meier-survival` skill before fitting Kaplan-Meier curves, summarizing median survival, or describing retention-like outcomes in time-based terms.
