@@ -20,7 +20,6 @@ from plotnine import (
     ggplot,
     labs,
     coord_flip,
-    scale_fill_manual,
     scale_x_continuous,
     scale_x_datetime,
     scale_y_continuous,
@@ -129,40 +128,13 @@ def acquisition_weekly_plot() -> ggplot:
     )
 
 
-def acquisition_composition_plot() -> ggplot:
-    customer_type = read_table("acquisition_composition_customer_type.csv")
-    customer_type["dimension"] = "Customer type"
-    customer_type["category_type"] = "Reported category"
-
-    language = read_table("acquisition_composition_dev_language.csv")
-    language["dimension"] = "Development language"
-    language["category_type"] = "Reported category"
-    language.loc[language["category"] == "unknown", "category_type"] = (
-        "Unknown (explicit)"
-    )
-
-    data = pd.concat([customer_type, language], ignore_index=True)
+def acquisition_customer_type_plot() -> ggplot:
+    data = read_table("acquisition_composition_customer_type.csv")
     data["account_count"] = pd.to_numeric(data["account_count"])
     data["share_pct"] = pd.to_numeric(data["share_of_cohort"]) * 100
-    data["dimension"] = pd.Categorical(
-        data["dimension"],
-        categories=["Customer type", "Development language"],
-        ordered=True,
-    )
+    ordered_categories = data.sort_values("account_count")["category"].tolist()
     data["category"] = pd.Categorical(
-        data["category"],
-        categories=[
-            "Credit_Program",
-            "Enterprise",
-            "SMB",
-            "java",
-            "php",
-            "python",
-            "node",
-            "dotnet",
-            "unknown",
-        ],
-        ordered=True,
+        data["category"], categories=ordered_categories, ordered=True
     )
     data["count_share_label"] = data.apply(
         lambda row: f"{int(row['account_count'])} ({row['share_pct']:.1f}%)",
@@ -170,46 +142,75 @@ def acquisition_composition_plot() -> ggplot:
     )
 
     return (
-        ggplot(data, aes(x="category", y="share_pct", fill="category_type"))
-        + geom_col(width=0.72)
+        ggplot(data, aes(x="category", y="account_count"))
+        + geom_col(fill=BAY_6[0], width=0.72)
         + geom_text(
             aes(label="count_share_label"),
-            nudge_y=1.2,
+            nudge_y=14,
             ha="left",
             color="#303336",
-            size=8.5,
+            size=9,
             family=FONT,
         )
         + coord_flip()
-        + facet_wrap("~dimension", nrow=1, scales="free_x")
-        + scale_fill_manual(
-            values={"Reported category": BAY_6[0], "Unknown (explicit)": BAY_6[2]}
-        )
         + scale_y_continuous(
-            limits=(0, 100),
-            breaks=(0, 25, 50, 75, 100),
-            labels=lambda values: [f"{value:.0f}%" for value in values],
-            expand=(0, 0),
+            limits=(0, 760), breaks=(0, 200, 400, 600), expand=(0, 0)
         )
         + labs(
-            title="SMB dominates customer mix; language remains unknown for 37%",
-            subtitle=(
-                "Counts and shares of all 977 accounts • both panels use the same "
-                "0–100% scale"
-            ),
+            title="SMB accounts make up nearly two-thirds of the cohort",
+            subtitle="Customer type • cohort n = 977 • bars show account counts",
             x="",
-            y="Share of cohort",
-            caption=(
-                "Development-language `unknown` is an explicit reported category, "
-                "not a missing value."
-            ),
+            y="Accounts (count)",
+            caption="Labels show count and share of the cohort.",
         )
         + rti_growth_plotnine_theme()
         + theme(
-            figure_size=(12, 5.4),
+            figure_size=(9, 4.6),
             panel_grid_major_y=element_blank(),
-            panel_spacing_x=0.05,
         )
+    )
+
+
+def acquisition_dev_language_plot() -> ggplot:
+    data = read_table("acquisition_composition_dev_language.csv")
+    data["account_count"] = pd.to_numeric(data["account_count"])
+    data["share_pct"] = pd.to_numeric(data["share_of_cohort"]) * 100
+    ordered_categories = data.sort_values("account_count")["category"].tolist()
+    data["category"] = pd.Categorical(
+        data["category"], categories=ordered_categories, ordered=True
+    )
+    data["count_share_label"] = data.apply(
+        lambda row: f"{int(row['account_count'])} ({row['share_pct']:.1f}%)",
+        axis=1,
+    )
+
+    return (
+        ggplot(data, aes(x="category", y="account_count"))
+        + geom_col(fill=BAY_6[0], width=0.72)
+        + geom_text(
+            aes(label="count_share_label"),
+            nudge_y=15,
+            ha="left",
+            color="#303336",
+            size=9,
+            family=FONT,
+        )
+        + coord_flip()
+        + scale_y_continuous(
+            limits=(0, 450), breaks=(0, 100, 200, 300, 400), expand=(0, 0)
+        )
+        + labs(
+            title="Unknown is the largest reported development-language category",
+            subtitle="Development language • cohort n = 977 • bars show account counts",
+            x="",
+            y="Accounts (count)",
+            caption=(
+                "Labels show count and cohort share. `unknown` is an explicit "
+                "reported category, not a missing value."
+            ),
+        )
+        + rti_growth_plotnine_theme()
+        + theme(figure_size=(9, 5.2), panel_grid_major_y=element_blank())
     )
 
 
@@ -336,10 +337,16 @@ def main() -> None:
     FIGURES.mkdir(parents=True, exist_ok=True)
     save_png(acquisition_weekly_plot(), "weekly_acquisition.png", width=10, height=5.2)
     save_png(
-        acquisition_composition_plot(),
-        "acquisition_composition.png",
-        width=12,
-        height=5.4,
+        acquisition_customer_type_plot(),
+        "acquisition_customer_type.png",
+        width=9,
+        height=4.6,
+    )
+    save_png(
+        acquisition_dev_language_plot(),
+        "acquisition_dev_language.png",
+        width=9,
+        height=5.2,
     )
     save_png(
         observed_coverage_plot(),
