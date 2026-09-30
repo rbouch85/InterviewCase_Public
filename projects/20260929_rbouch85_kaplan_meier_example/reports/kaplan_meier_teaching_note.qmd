@@ -1,0 +1,105 @@
+---
+title: "Kaplan–Meier: A Practical Guide to Time-to-Event Data"
+subtitle: "A worked reading of the lifelines Waltons example"
+author: "InterviewCase Public"
+lang: en-US
+execute:
+  enabled: false
+format:
+  docx:
+    toc: true
+    number-sections: true
+---
+
+# Executive summary
+
+Kaplan–Meier (KM) estimates the probability of remaining event-free beyond each follow-up time while accounting for right-censored observations. In the saved lifelines Waltons example, the event is death, follow-up starts at birth and is measured in days, and the curves are grouped by genotype. The saved notebook reports median survival of 58 days for control flies and 26 days for miR-137 flies.
+
+These are unadjusted, descriptive estimates from an educational dataset. The curves and medians do not show that genotype caused a difference, and no formal group-comparison test is reported. Late estimates need particular caution: few miR-137 flies remain at risk later in follow-up.
+
+# Approach
+
+## When time-to-event analysis is useful
+
+Time-to-event analysis is useful when the outcome is both **whether an event occurs** and **how long it takes**. Examples include time to customer churn, equipment failure, relapse, or adoption. Unlike a simple event proportion, it can use partial follow-up from people or units whose event has not yet been observed.
+
+At minimum, the analysis needs a defined event, a consistent time origin, a duration in stated units, and an indicator distinguishing observed events from right-censoring. The follow-up and event definition must be comparable for any groups being described.
+
+KM is not enough when the question requires adjustment for other characteristics, a causal treatment effect, a formal test of group differences, or accounting for competing event types. Those questions need an appropriate study design and additional methods.
+
+## How the Kaplan–Meier estimate works
+
+The survival function, \(S(t)\), estimates the probability of remaining event-free beyond time \(t\). At each event time, the estimate steps down according to the number of observed events among units still at risk. A right-censored observation contributes to the risk set up to its last known follow-up, but it is not counted as an event at censoring.
+
+The curve is therefore not a simple fraction of the original sample still event-free at every time. The shaded confidence intervals communicate uncertainty around the estimate. Censor marks identify observed censoring times, and the number-at-risk row shows how much follow-up supports each part of the curve.
+
+## Example definitions and groups
+
+This example uses `lifelines.datasets.load_waltons()`, with 163 Drosophila observations:
+
+| Analysis element | Example definition |
+|---|---|
+| Event | Death |
+| Time origin | Birth |
+| Duration | Days survived (`T`) |
+| Event indicator | `E = 1` when death was observed; `E = 0` when right-censored |
+| Groups | `control` and `miR-137` genotype |
+| Censoring | Follow-up ended without observing natural death; the dataset documentation also describes accidental killing or escape before natural death |
+
+A censored fly is known to have survived at least until its last observed time; the data do not tell us when its later natural death occurred. The saved notebook's group summary reports seven right-censored control flies and no censored miR-137 flies.
+
+# Assumptions
+
+- **Consistent definitions:** the event, time origin, duration units, and group labels are applied consistently. In this example they are death, birth, days, and genotype.
+- **Non-informative censoring:** after accounting for relevant information, censored units should not systematically have different unobserved event prospects from units still followed. If censoring is related to survival, the KM estimate can be biased.
+- **Comparable follow-up:** group curves are most useful when groups have comparable observation conditions and sufficient follow-up. In this example, the saved summary has observed follow-up through day 75 for control and day 62 for miR-137, with different group sizes and censoring patterns.
+- **Adequate support over time:** estimates become less precise as the risk set shrinks. A flat tail is not proof that risk has stopped.
+
+KM is unadjusted for other characteristics. A difference between descriptive curves does not establish causation or, by itself, statistical significance. No log-rank test, adjusted model, or causal analysis is part of this example.
+
+# Findings
+
+## Saved notebook results
+
+The values below are transcribed from the existing saved notebook outputs; rendering this report does not recompute them.
+
+| Genotype | Flies | Observed deaths | Right-censored | Median survival | Latest observed follow-up |
+|---|---:|---:|---:|---:|---:|
+| control | 129 | 122 | 7 | 58 days | 75 days |
+| miR-137 | 34 | 34 | 0 | 26 days | 62 days |
+
+The saved notebook also reports an overall median survival of 56 days. A KM median is the time when the estimated event-free probability first reaches 0.5; it is a summary of this event definition and observed follow-up, not a causal effect.
+
+## Reading the saved curve
+
+![Saved Kaplan–Meier figure from the notebook. The step curves estimate probability alive by days since birth; shaded bands are 95% confidence intervals, plus signs indicate right-censoring, and the rows below the plot give the number at risk.](../outputs/figures/waltons_kaplan_meier.png){width=6.4in}
+
+The vertical axis is the estimated probability of being alive beyond a given day. A downward step marks observed deaths. The 95% confidence bands show uncertainty, while the plus signs mark censored follow-up. The plot's risk table supplies useful context for the late portions of the curves:
+
+| Day | control at risk | miR-137 at risk |
+|---:|---:|---:|
+| 0 | 129 | 34 |
+| 30 | 126 | 8 |
+| 50 | 97 | 2 |
+| 60 | 47 | 2 |
+| 70 | 1 | 0 |
+
+For example, only two miR-137 flies remain at risk at day 60, so the late curve for that group has little follow-up support. The table values are read from the saved figure; no new event-time calculation is performed here.
+
+## Interpretation and limits
+
+In this dataset, the estimated curve for control is generally above the curve for miR-137 over much of the displayed follow-up, and the saved medians are 58 and 26 days, respectively. Describe this as a pattern in these unadjusted sample estimates only. The groups differ in size, observed follow-up, and censoring; the miR-137 risk set becomes especially small late in follow-up. The chart alone does not show whether a group difference is statistically significant or whether genotype caused it.
+
+These results describe the documented Waltons teaching dataset only. They are not evidence about customer churn or retention in the repository's interview-case data.
+
+# Appendix
+
+## Reproduction and source
+
+The report uses the saved notebook outputs and the existing PNG at `outputs/figures/waltons_kaplan_meier.png`. Quarto execution is disabled in this source; the render command does not execute the notebook or run Python analysis, and it does not regenerate the figure. See the project README for the report-only commands.
+
+Method and dataset references:
+
+- [`KaplanMeierFitter` API documentation](https://lifelines.readthedocs.io/en/latest/fitters/univariate/KaplanMeierFitter.html)
+- [`lifelines` datasets documentation](https://lifelines.readthedocs.io/en/latest/lifelines.datasets.html)
+- [`lifelines.datasets.load_waltons()`](https://lifelines.readthedocs.io/en/latest/lifelines.datasets.html#lifelines.datasets.load_waltons)
