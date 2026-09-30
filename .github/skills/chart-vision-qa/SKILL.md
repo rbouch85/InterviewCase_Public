@@ -14,7 +14,7 @@
 
 Charts from this repository are presented to **leadership and executive stakeholders**. A truncated axis label or clipped title doesn't just look sloppy — it erodes trust in the underlying analysis. Code review catches logic errors but cannot catch visual defects: overlapping text, squished aspect ratios, unreadable font sizes, or legends covering data points. Those defects only appear in the rendered image.
 
-This skill defines a systematic, vision-based QA pass that any chart-producing agent can run after rendering. It turns "looks fine to me" into a repeatable checklist.
+This skill defines a systematic, vision-based QA pass that any chart-producing agent can run after rendering. It turns "looks fine to me" into a repeatable checklist. For Word and PowerPoint deliverables, the exported Office file is part of the rendered artifact: source code, source alt text, and intermediate PNGs are not proof that the final document is correct.
 
 ---
 
@@ -29,9 +29,10 @@ This skill defines a systematic, vision-based QA pass that any chart-producing a
 ## How It Works
 
 1. **View the saved PNG** — Use the `view` tool on the rendered image file (e.g., `outputs/figures/revenue_by_segment.png`).
-2. **Run through the checklist** below, category by category. Note any defects.
-3. **If defects found** → fix the chart code, re-render, and re-check.
-4. **If clean** → move on. No annotation needed for passing charts.
+2. **Inspect the actual exported/rendered deliverable** — Open the emitted DOCX/PPTX (and inspect it in its normal Word/PowerPoint view, or an equivalent renderer), not only the source or an intermediate image. Judge labels, legends, annotations, and chart text at the final report or slide/presentation size.
+3. **Run through the checklist** below, category by category. Note any defects.
+4. **If defects found** → fix the chart code or report assembly, re-render, and re-check the source image and the exported Office file.
+5. **If clean** → move on. No annotation needed for passing charts.
 
 ---
 
@@ -76,6 +77,16 @@ This skill defines a systematic, vision-based QA pass that any chart-producing a
 - [ ] **PNG resolution** — ≥150 DPI for projection on large screens
 - [ ] **Standalone interpretability** — Chart makes sense without verbal narration or surrounding text
 - [ ] **Consistent visual identity** — Colors, fonts, and styling match other charts in the project
+
+### Category 5: Office Deliverable Integrity
+*Did the exported file preserve the visual and accessibility contract?*
+
+- [ ] **Final-size readability** — Recheck labels, legends, titles, annotations, and number-at-risk text at the actual slide size or normal document viewing size; do not pass based on a zoomed intermediate image.
+- [ ] **Uncertainty remains visible** — Confidence/uncertainty intervals are still visible, distinguishable from the estimate, and not clipped, flattened, or hidden after export.
+- [ ] **Survival-plot support remains visible** — Kaplan–Meier censor marks and number-at-risk/risk-support information remain present, legible, and associated with the correct plot when relevant. Visual QA checks visibility only; route censoring and risk interpretation or other methodological correctness to Experiment-dude or the appropriate method specialist.
+- [ ] **Emitted accessibility metadata** — Inspect the actual DOCX/PPTX package metadata (including the chart/image alt text or description) or run the relevant Office Accessibility Checker. Source-level alt text is not proof that the exported file contains usable metadata.
+- [ ] **Source assets open** — Open each source figure asset used by the deliverable and confirm it is readable and not corrupted.
+- [ ] **Embedded media and relationships are intact** — Confirm the exported Office file contains the intended embedded images/charts and valid package relationships; no missing, broken, or substituted media appears in the rendered document.
 
 ---
 
